@@ -32,7 +32,7 @@ class EmailTests(TestCase, EmailTestHelper):
     """Tests the e-mail support."""
     fixtures = ['test_users', 'test_reviewrequests', 'test_scmtools',
                 'test_site']
-
+            
     def setUp(self):
         initialize()
 
@@ -59,11 +59,12 @@ class EmailTests(TestCase, EmailTestHelper):
         self.assertValidRecipients(["grumpy", "doc"], [])
 
         message = mail.outbox[0].message()
+        print review_request.submitter
         
         if review_request.submitter.first_name != "":
             signigture = "Thanks,\n\n" + review_request.submitter.first_name + " " + review_request.submitter.last_name
             self.assertTrue(re.search(signigture,mail.outbox[0].body))
-        
+
         self.assertEqual(message['Sender'],
                          self._get_sender(review_request.submitter))
 
