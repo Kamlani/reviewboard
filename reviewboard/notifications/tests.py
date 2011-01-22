@@ -61,7 +61,7 @@ class EmailTests(TestCase, EmailTestHelper):
 
         message = mail.outbox[0].message()
         print review_request.submitter
-        
+
         if review_request.submitter.first_name != "":
             signigture = "Thanks,\n\n" + review_request.submitter.first_name + " " + review_request.submitter.last_name
             self.assertTrue(re.search(signigture,mail.outbox[0].body))
