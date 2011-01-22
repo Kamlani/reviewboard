@@ -9,7 +9,7 @@ from reviewboard.notifications.email import build_email_address, \
                                             get_email_address_for_user, \
                                             get_email_addresses_for_group
 from reviewboard.reviews.models import Group, Review, ReviewRequest
-
+import re
 
 class EmailTestHelper(object):
     def assertValidRecipients(self, user_list, group_list):
@@ -59,7 +59,11 @@ class EmailTests(TestCase, EmailTestHelper):
         self.assertValidRecipients(["grumpy", "doc"], [])
 
         message = mail.outbox[0].message()
-        print review_request.submitter
+        
+        if review_request.submitter.first_name != "":
+            signigture = "Thanks,\n\n" + review_request.submitter.first_name + " " + review_request.submitter.last_name
+            self.assertTrue(re.search(signigture,mail.outbox[0].body))
+        
         self.assertEqual(message['Sender'],
                          self._get_sender(review_request.submitter))
 

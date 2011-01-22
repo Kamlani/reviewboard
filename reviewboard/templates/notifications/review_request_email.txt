@@ -54,6 +54,6 @@ Screenshots{% if changes and changes.screenshots %} (updated){% endif %}
 
 Thanks,
 
-{% ifnotequal review_request.submitter.first_name "" %}{{review_request.submitter.first_name}}{% else %}{{review_request.submitter.username}}{% endifnotequal %}
+{% ifnotequal review_request.submitter.first_name "" %}{{review_request.submitter.first_name}} {{review_request.submitter.last_name}}{% else %}{{review_request.submitter.username}}{% endifnotequal %}
 {% endcondense %}
 {% endautoescape %}
