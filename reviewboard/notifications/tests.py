@@ -11,6 +11,7 @@ from reviewboard.notifications.email import build_email_address, \
 from reviewboard.reviews.models import Group, Review, ReviewRequest
 import re
 
+
 class EmailTestHelper(object):
     def assertValidRecipients(self, user_list, group_list):
         recipient_list = mail.outbox[0].to + mail.outbox[0].cc
@@ -32,7 +33,7 @@ class EmailTests(TestCase, EmailTestHelper):
     """Tests the e-mail support."""
     fixtures = ['test_users', 'test_reviewrequests', 'test_scmtools',
                 'test_site']
-            
+
     def setUp(self):
         initialize()
 
