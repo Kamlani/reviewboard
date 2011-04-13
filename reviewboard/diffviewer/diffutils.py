@@ -1102,7 +1102,7 @@ def get_diff_files(diffset, filediff=None, interdiffset=None,
 
 
 def get_file_chunks_in_range(context, filediff, interfilediff,
-                             first_line, num_lines):
+                             first_line, num_lines, enable_highlighting=True):
     """
     A generator that yields chunks within a range of lines in the specified
     filediff/interfilediff.
@@ -1156,8 +1156,10 @@ def get_file_chunks_in_range(context, filediff, interfilediff,
         files = context[key]
     else:
         assert 'user' in context
-        files = get_diff_files(filediff.diffset, filediff, interdiffset,
-                               get_enable_highlighting(context['user']))
+        files = get_diff_files(filediff.diffset,
+            filediff,
+            interdiffset,
+            enable_highlighting and get_enable_highlighting(context['user']))
         context[key] = files
 
     if not files:
